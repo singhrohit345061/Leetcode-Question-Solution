@@ -1,0 +1,44 @@
+Question No: 33. Search in Rotated Sorted Array
+
+The Solution is in C++ Language.
+
+Solution:
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int left = 0;
+        int right = nums.size() - 1;
+
+        while (left <= right) {
+            int mid = (left + right) / 2;
+
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] >= nums[left]) {
+                if (nums[left] <= target && target <= nums[mid]) {
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
+                }
+            } else {
+                if (nums[mid] <= target && target <= nums[right]) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
+                }
+            }
+        }
+
+        return -1;        
+    }
+};
+
+Approach:
+The approach uses modified binary search because the array is rotated but still has one sorted half. 
+We find the middle index and check whether the target is found. 
+If the left half is sorted (nums[mid] >= nums[left]), we check whether the target lies between nums[left] and nums[mid]; if yes, we search left, otherwise right. 
+If the right half is sorted, we check whether the target lies between nums[mid] and nums[right] and search accordingly. 
+We repeat until the target is found or the search range becomes empty. If not found, we return -1.
+
+Time Complexity: O(log n).
+Space Complexity: O(1).
