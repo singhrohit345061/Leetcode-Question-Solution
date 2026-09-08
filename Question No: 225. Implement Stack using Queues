@@ -1,5 +1,7 @@
 Question No: 225. Implement Stack using Queues
 
+The Solution is Written in C++ Language.
+
 Solution:
 
 class MyStack {
