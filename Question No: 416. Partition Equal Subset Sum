@@ -1,0 +1,37 @@
+Question No: 416. Partition Equal Subset Sum
+
+The Solution is in C++ Language.
+
+Solution:
+
+class Solution {
+public:
+    bool canPartition(vector<int>& nums) {
+        int total = accumulate(nums.begin(), nums.end(), 0);
+        if (total % 2 != 0) return false;
+
+        int target = total / 2;
+        vector<bool> dp(target + 1, false);
+        dp[0] = true;
+
+        for (int n : nums) {
+            for (int i = target; i >= n; i--) {
+                if (dp[i]) continue;
+                if (dp[i - n]) dp[i] = true;
+                if (dp[target]) return true;
+            }
+        }
+
+        return false;        
+    }
+};
+
+
+Approach:
+
+The solution uses a Dynamic Programming approach to check whether the array can be divided into two subsets with equal sums. 
+First, it calculates the total sum of all elements. If the total sum is odd, equal partition is not possible. 
+Otherwise, the target sum for each subset is total / 2.
+A boolean DP array is used where dp[i] indicates whether a subset with sum i can be formed. Initially, dp[0] is true. 
+For each number, the DP array is updated from right to left to avoid using the same number multiple times. 
+If dp[target] becomes true, the array can be partitioned into two equal-sum subsets, so the function returns true; otherwise, it returns false.
