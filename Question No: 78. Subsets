@@ -1,0 +1,39 @@
+Question No: 78. Subsets
+
+The Solution is in C++ Language.
+
+Solution:
+
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> res;
+        vector<int> subset;
+
+        createSubset(nums, 0, res, subset);
+        return res;        
+    }
+
+    void createSubset(vector<int>& nums, int index, vector<vector<int>>& res, vector<int>& subset) {
+        if (index == nums.size()) {
+            res.push_back(subset);
+            return;
+        }
+
+        subset.push_back(nums[index]);
+        createSubset(nums, index + 1, res, subset);
+
+        subset.pop_back();
+        createSubset(nums, index + 1, res, subset);
+    }    
+};
+
+Approach:
+
+The solution uses the Backtracking (Include/Exclude) approach to generate all possible subsets of the given array. 
+For every element in nums, the algorithm has two choices: either include the element in the current subset or exclude it. 
+First, the element is added using push_back() and the recursive function is called for the next index. 
+After that, pop_back() is used to remove the element, which is called backtracking,
+    and the function is again called for the next index without including that element. 
+When the index reaches the size of the array, the current subset is complete and is added to the result. 
+By exploring both choices for every element, the algorithm generates all possible 2ⁿ subsets.
