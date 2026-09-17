@@ -1,0 +1,38 @@
+Question No: 322. Coin Change
+
+Solution is Written in C++ Language.
+
+Solution:
+
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        vector<int> minCoins(amount + 1, amount + 1);
+        minCoins[0] = 0;
+
+        for (int i = 1; i <= amount; i++) {
+            for (int j = 0; j < coins.size(); j++) {
+                if (i - coins[j] >= 0) {
+                    minCoins[i] = min(minCoins[i], 1 + minCoins[i - coins[j]]);
+                }
+            }
+        }
+
+        return minCoins[amount] != amount + 1 ? minCoins[amount] : -1;        
+    }
+};
+
+
+Approach:
+
+Initialize DP array: Create minCoins of size amount + 1, initialized to amount + 1 (a value representing infinity).
+
+Base case: Set minCoins[0] = 0, since 0 coins are needed to make amount 0.
+
+Iterate through amounts: Loop from 1 to amount.
+
+Check each coin: For every amount, try all available coins.
+
+Update minimum: If i - coins[j] >= 0, update: minCoins[i] = min(minCoins[i], 1 + minCoins[i - coins[j]])
+
+Return result: If the target amount is achievable, return minCoins[amount]; otherwise, return -1.
